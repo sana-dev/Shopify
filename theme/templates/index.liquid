@@ -1,0 +1,16 @@
+<div class="collection-container">
+  <!-- Collection Title -->
+  <h2 class="collection-title">{{ collections['frontpage'].title }}</h2>
+  <div class="products-list">
+    {% for product in collections['frontpage'].products %}
+    <div class="product-card">
+
+      <a href="{{ product.url }}" class="product-link">
+        <h3 class="product-title">{{ product.title }}</h3>
+      </a>
+
+      {% render 'product-item', product: product %}
+    </div>
+    {% endfor %}
+  </div>
+</div>

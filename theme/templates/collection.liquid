@@ -1,0 +1,40 @@
+{% paginate collection.products by 8 %}
+<div class="collection-container">
+    
+    <h1 class="collection-title">{{ collection.title }}</h1>
+
+
+    <div class="sort-by-container">
+        <label for="sort-by" class="sort-by-label">Sort By:</label>
+        <select id="sort-by" class="sort-by-select" onchange="sortCollection()">
+            {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+            {% for option in collection.sort_options %}
+            <option value="{{ option.value }}" {% if option.value == sort_by %}selected="selected"{% endif %}>
+                {{ option.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="products-list">
+        {% for product in collection.products %}
+        {% render 'product-item', product: product %}
+        {% endfor %}
+    </div>
+
+
+    <div class="pagination">
+        {{ paginate | default_pagination }}
+    </div>
+</div>
+{% endpaginate %}
+
+<script>
+    function sortCollection() {
+        var sortBy = document.getElementById("sort-by").value;
+        var url = new URL(window.location.href);
+        url.searchParams.set('sort_by', sortBy);
+        window.location.href = url.href;
+    }
+</script>
+

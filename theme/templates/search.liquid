@@ -1,0 +1,21 @@
+<div class="search-container">
+    {% if search.performed %}
+    <h2 class="search-title">Search Results for "{{ search.terms }}"</h2>
+
+    {% if search.results_count > 0 %}
+    <ul class="search-results">
+        {% for result in search.results %}
+        <li class="search-result-item">
+            <a href="{{ result.url }}" class="search-result-link">
+                <img src="{{ result.featured_image | img_url: 'medium' }}" alt="{{ result.title }}" class="search-result-image">
+                <h3 class="search-result-title">{{ result.title }}</h3>
+                <p class="search-result-price">{{ result.price | money }}</p>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="no-results-message">No products found for "{{ search.terms }}". Try another search.</p>
+    {% endif %}
+    {% endif %}
+</div>

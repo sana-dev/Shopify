@@ -1,0 +1,37 @@
+<header class="site-header">
+  <h1 class="site-title">Fragscent</h1>
+
+  <nav class="main-menu">
+    <ul class="menu-list">
+      {% for link in linklists.main-menu.links -%}
+        <li class="menu-item">
+          <a href="{{ link.url }}" class="menu-link">{{ link.title }}</a>
+        </li>
+      {%- endfor %}
+    </ul>
+  </nav>
+
+  {% if settings.show_search %}
+  <form action="/search" class="search-form">
+    <input type="search" name="q" class="search-input" placeholder="Search...">
+    <button type="submit" class="search-button">Search</button>
+  </form>
+  {% endif %}
+</header>
+
+{% comment %} {%schema%}
+   {"name":"Header",
+   "settings": {
+                        "type": "checkbox",
+                        "id": "show_search",
+                        "label": "Show search form?",
+                       
+                  },
+                   {
+                        "type": "color",
+                        "id": "bg",
+                        "label": "Background color",
+                     
+                  }
+                  }
+{%endschema%} {% endcomment %}

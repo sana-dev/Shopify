@@ -1,0 +1,12 @@
+<header>
+<h1>Fragscent</h1>
+
+<ul>
+{% for link in linklists.main-menu.links -%}
+  {{ link.title | link_to: link.url }}
+{%- endfor %}
+</ul>
+<form action="/search">
+ <input type="search" name="q">
+  <button type="submit">Search</button></form>
+</header>
