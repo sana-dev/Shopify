@@ -1,1 +1,78 @@
  {% comment %} alert("{{"hello"}}"); {% endcomment %}
+
+
+{% comment %} 
+  alert("{{"hello there"}}"); {% endcomment %}
+  updatemedia() {
+    if(this.currentVariant) return;
+    if(!this.currentVariant.featured_media) return;
+    const mediaGalleries = document.querySelectorAll(`[id^="mediaGallery-${this.datadet.section}"]`);
+    mediaGalleries.forEach((mediaGallery)=>
+   mediaGallery.setActiveMedia(`${this.dataset.section}-${this.currentVariant.featured_media.id}`,true)
+    ); 
+    const modalContent=document.querySelector(`#ProductModal-${this.dataset.section}.product-media-modal_content`);
+    if(!modalContent) return;
+    const newMediaModal=modalContent.querySelector(`[data-media-id="${this.currentVariant.featured_media.id}"]`);
+    modalContent.prepend(newMediaModal);
+    // Selected Variants Code
+    const variantValues = this.currentVariant.options
+    const mediaGallery = document.querySelector(`[id^="MediaGallery-${this.dataset.section}"]`)
+    if (mediaGallery.hasAttribute("image-grouping-enabled")) {
+      mediaGallery.querySelectorAll('[data-image-group]').forEach(el => el.classList.add('hide-media'))
+      variantValues.forEach(value => { mediaGallery.querySelectorAll(`[data-image-group="${value}"]`).forEach(el => el.classList.remove('hide-media')) })
+      mediaGallery.querySelectorAll('slider-component').forEach(slider => { slider.initPages() })
+    }
+    // Selected Variants Code end
+  }
+
+
+
+
+  updatemedia() {
+  // Check if currentVariant exists
+  if (this.currentVariant) return;
+
+  // Check if currentVariant has a featured_media property
+  if (!this.currentVariant.featured_media) return;
+
+  // Select all media galleries related to the current section
+  const mediaGalleries = document.querySelectorAll(`[id^="mediaGallery-${this.dataset.section}"]`);
+
+  // Set the active media for each media gallery
+  mediaGalleries.forEach((mediaGallery) => {
+    mediaGallery.setActiveMedia(`${this.dataset.section}-${this.currentVariant.featured_media.id}`, true);
+  });
+
+  // Select the modal content related to the current section
+  const modalContent = document.querySelector(`#ProductModal-${this.dataset.section}.product-media-modal_content`);
+
+  // Check if modalContent exists
+  if (!modalContent) return;
+
+  // Select the new media modal element to be prepended
+  const newMediaModal = modalContent.querySelector(`[data-media-id="${this.currentVariant.featured_media.id}"]`);
+
+  // Prepend the new media modal to the modal content
+  modalContent.prepend(newMediaModal);
+
+  // Selected Variants Code
+  const variantValues = this.currentVariant.options;
+  const mediaGallery = document.querySelector(`[id^="MediaGallery-${this.dataset.section}"]`);
+
+  // Check if mediaGallery exists and has the attribute "image-grouping-enabled"
+  if (mediaGallery && mediaGallery.hasAttribute("image-grouping-enabled")) {
+    // Hide all media elements initially
+    mediaGallery.querySelectorAll('[data-image-group]').forEach(el => el.classList.add('hide-media'));
+
+    // Unhide media elements that match the variant values
+    variantValues.forEach(value => {
+      mediaGallery.querySelectorAll(`[data-image-group="${value}"]`).forEach(el => el.classList.remove('hide-media'));
+    });
+
+    // Initialize slider components
+    mediaGallery.querySelectorAll('slider-component').forEach(slider => {
+      slider.initPages();
+    });
+  }
+  // Selected Variants Code end
+}
